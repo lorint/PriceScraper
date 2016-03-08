@@ -1,0 +1,21 @@
+<ul>
+<% @top_categories.each do |cat| %>
+	<li>
+		<%= link_to cat.name, cat.url %>
+		<ul>
+		<% cat.children.order(:name).each do |cat2| %>
+			<li>
+				<%= link_to cat2.name, cat2.url %>
+				<ul>
+					<% cat2.children.order(:name).each do |cat3| %>
+					<li>
+					<%= link_to cat3.name, cat3.url %>
+					</li>
+				<% end %>
+				</ul>
+			</li>
+		<% end %>
+		</ul>
+	</li>
+<% end %>
+</ul>

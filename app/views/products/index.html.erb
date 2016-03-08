@@ -1,0 +1,26 @@
+<div id="products">
+	<% @products.each do |product| %>
+		<%= product.name %><br />
+	<% end %>
+</div>
+
+<hr />
+
+<!-- This will be both for new stuff and editing -->
+<%= form_for @product, {remote: true, html: {id: "product_form"}} do |f| %>
+	<%= f.text_field :name %><br />
+	<%= f.text_field :price %><br />
+	<%#= f.collection_select :category_id, Category.all.order(:name), :id, :name %><br />
+	<%= f.submit %>
+<% end %>
+
+<script>
+	$("#product_form").
+	on("ajax:success", function(e, data, status, xhr){
+		console.log(e, data, status, xhr);
+		$(data.html).appendTo("#products");
+	}).
+	on("ajax:error", function(e, data, status, xhr){
+		console.log(e, data, status, xhr);
+	});
+</script>
